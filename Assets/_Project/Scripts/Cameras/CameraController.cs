@@ -26,7 +26,7 @@ namespace LD44.Cameras
                 targetOffset = new Vector3(
                     Mathf.Clamp01(Mathf.Abs(player.transform.position.x) / MaxRange) * Mathf.Sign(player.transform.position.x) * MaxRange,
                     0f,
-                    0f
+                    Mathf.Clamp01(Mathf.Abs(player.transform.position.z) / MaxRange) * Mathf.Sign(player.transform.position.z) * MaxRange
                 );
             }
 
