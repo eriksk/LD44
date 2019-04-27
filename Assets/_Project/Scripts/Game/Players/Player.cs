@@ -1,5 +1,6 @@
 
 using System;
+using LD44.Game.Coins;
 using UnityEngine;
 
 namespace LD44.Game.Players
@@ -78,6 +79,31 @@ namespace LD44.Game.Players
             }
         }
 
+        public void OnHitByCoin(Coin coin)
+        {
+            var damage = 2;
+            
+            while(damage > 0 && Budget > 0)
+            {
+                Budget--;
+                damage--;
+                var spawnedCoin = ObjectLocator.Coins.Pop();
+                spawnedCoin.Loss(transform.position);
+            }
+
+            if(Budget <= 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            // TODO: Register death in game manager or something?
+            ObjectLocator.DestructablePiggy.Execute(transform);
+            gameObject.SetActive(false);
+        }
+
         private void TryFire()
         {
             if(Budget <= 0)
@@ -89,6 +115,11 @@ namespace LD44.Game.Players
             ObjectLocator.Particles.Explosion(Muzzle.position, Muzzle.forward);
             SetAnimation("shoot");
             Budget--;
+            
+            if(Budget <= 0)
+            {
+                Die();
+            }
         }
 
         void FixedUpdate()

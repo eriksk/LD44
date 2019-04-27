@@ -9,6 +9,7 @@ namespace LD44.Collections.Pool
     {
         public int Capacity { get; private set; }
         public List<T> ActiveItems => _active;
+        public List<T> InactiveItems => _inactive;
         public int Active => _active.Count;
         public int Ramaining => _inactive.Count;
 

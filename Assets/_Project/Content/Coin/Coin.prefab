@@ -108,6 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   Rigidbody: {fileID: 462799483914452075}
+  PlayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!54 &462799483914452075
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,0 +1,175 @@
+fileFormatVersion: 2
+guid: e50b658f70e57b9459944e4dfd8cf75a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: destructable_piggy_cell
+    100004: destructable_piggy_cell_001
+    100006: destructable_piggy_cell_002
+    100008: destructable_piggy_cell_003
+    100010: destructable_piggy_cell_004
+    100012: destructable_piggy_cell_005
+    100014: destructable_piggy_cell_006
+    100016: destructable_piggy_cell_007
+    100018: destructable_piggy_cell_008
+    100020: destructable_piggy_cell_009
+    100022: destructable_piggy_cell_010
+    100024: destructable_piggy_cell_011
+    100026: destructable_piggy_cell_012
+    100028: destructable_piggy_cell_013
+    100030: destructable_piggy_cell_014
+    400000: //RootNode
+    400002: destructable_piggy_cell
+    400004: destructable_piggy_cell_001
+    400006: destructable_piggy_cell_002
+    400008: destructable_piggy_cell_003
+    400010: destructable_piggy_cell_004
+    400012: destructable_piggy_cell_005
+    400014: destructable_piggy_cell_006
+    400016: destructable_piggy_cell_007
+    400018: destructable_piggy_cell_008
+    400020: destructable_piggy_cell_009
+    400022: destructable_piggy_cell_010
+    400024: destructable_piggy_cell_011
+    400026: destructable_piggy_cell_012
+    400028: destructable_piggy_cell_013
+    400030: destructable_piggy_cell_014
+    2100000: unnamed
+    2300000: //RootNode
+    2300002: destructable_piggy_cell
+    2300004: destructable_piggy_cell_001
+    2300006: destructable_piggy_cell_002
+    2300008: destructable_piggy_cell_003
+    2300010: destructable_piggy_cell_004
+    2300012: destructable_piggy_cell_005
+    2300014: destructable_piggy_cell_006
+    2300016: destructable_piggy_cell_007
+    2300018: destructable_piggy_cell_008
+    2300020: destructable_piggy_cell_009
+    2300022: destructable_piggy_cell_010
+    2300024: destructable_piggy_cell_011
+    2300026: destructable_piggy_cell_012
+    2300028: destructable_piggy_cell_013
+    2300030: destructable_piggy_cell_014
+    3300000: //RootNode
+    3300002: destructable_piggy_cell
+    3300004: destructable_piggy_cell_001
+    3300006: destructable_piggy_cell_002
+    3300008: destructable_piggy_cell_003
+    3300010: destructable_piggy_cell_004
+    3300012: destructable_piggy_cell_005
+    3300014: destructable_piggy_cell_006
+    3300016: destructable_piggy_cell_007
+    3300018: destructable_piggy_cell_008
+    3300020: destructable_piggy_cell_009
+    3300022: destructable_piggy_cell_010
+    3300024: destructable_piggy_cell_011
+    3300026: destructable_piggy_cell_012
+    3300028: destructable_piggy_cell_013
+    3300030: destructable_piggy_cell_014
+    4300000: Sphere
+    4300002: piggy
+    4300004: destructable_piggy_cell_014
+    4300006: destructable_piggy_cell_013
+    4300008: destructable_piggy_cell_012
+    4300010: destructable_piggy_cell_011
+    4300012: destructable_piggy_cell_010
+    4300014: destructable_piggy_cell_009
+    4300016: destructable_piggy_cell_008
+    4300018: destructable_piggy_cell_007
+    4300020: destructable_piggy_cell_006
+    4300022: destructable_piggy_cell_005
+    4300024: destructable_piggy_cell_004
+    4300026: destructable_piggy_cell_003
+    4300028: destructable_piggy_cell_002
+    4300030: destructable_piggy_cell_001
+    4300032: destructable_piggy_cell
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
