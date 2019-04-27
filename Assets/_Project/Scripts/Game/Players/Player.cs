@@ -130,13 +130,14 @@ namespace LD44.Game.Players
 
         private void Die()
         {
-            // TODO: Register death in game manager or something?
             ObjectLocator.GameManager.OnPlayerDied(this);
             ObjectLocator.CameraShake.Shake();
+            ObjectLocator.Particles.Explosion(transform.position, Vector3.up);
             // TODO: GEtComponent GC
             ObjectLocator.DestructablePiggy.Execute(transform, GetComponentInChildren<MeshRenderer>().sharedMaterial);
             gameObject.SetActive(false);
         }
+
         private void TryFire()
         {
             if(Budget <= 0)

@@ -144,7 +144,7 @@ namespace LD44.Effects
                     UnityEngine.Random.Range(-0.3f, 0.3f)
                 );
                 
-                p.StartScale = UnityEngine.Random.Range(0.3f, 1f);
+                p.StartScale = UnityEngine.Random.Range(0.5f, 2f);
                 p.EndScale = 0f;
                 p.Scale = Vector3.zero;
                 p.Current = 0f;
