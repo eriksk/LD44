@@ -24,6 +24,8 @@ namespace LD44.Game.Players
         private Vector3 _aimDirection;
         private bool _fire;
 
+        public bool Dead => Budget <= 0;
+
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -82,19 +84,35 @@ namespace LD44.Game.Players
         public void OnHitByCoin(Coin coin)
         {
             var damage = 2;
+            var player = coin.FiredBy;
             
             while(damage > 0 && Budget > 0)
             {
                 Budget--;
                 damage--;
                 var spawnedCoin = ObjectLocator.Coins.Pop();
-                spawnedCoin.Loss(transform.position);
+                
+                var target = transform.position;
+                if(player != null)
+                {
+                    target = player.transform.position;
+                }
+
+                spawnedCoin.Loss(transform.position, target);
             }
 
             if(Budget <= 0)
             {
                 Die();
             }
+        }
+        
+        internal void PickUpCoin(Coin coin)
+        {
+            if(Dead) return;
+            
+            ObjectLocator.Particles.PickupCoin(coin.transform.position);
+            Budget++;
         }
 
         private void Die()
@@ -103,7 +121,6 @@ namespace LD44.Game.Players
             ObjectLocator.DestructablePiggy.Execute(transform);
             gameObject.SetActive(false);
         }
-
         private void TryFire()
         {
             if(Budget <= 0)

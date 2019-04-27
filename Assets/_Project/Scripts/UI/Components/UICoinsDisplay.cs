@@ -1,3 +1,4 @@
+using LD44.Game;
 using LD44.Game.Players;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,22 @@ namespace LD44.UI
 
         public void Update()
         {
-            if(Player == null) return;
+            if(ObjectLocator.GameManager == null)
+            {
+                return;
+            }
+            
+            if(Player == null)
+            {
+                Player = ObjectLocator.GameManager.Player;
+            }
+
+            if(Player == null)
+            {
+                CoinsText.text = "0";
+                return;
+            }
+
             if(_previousBudget == Player.Budget) return;
             _previousBudget = Player.Budget;
 

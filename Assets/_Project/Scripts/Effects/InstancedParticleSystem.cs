@@ -74,7 +74,7 @@ namespace LD44.Effects
 
                 p.Position = position;
                 
-                p.StartScale = UnityEngine.Random.Range(0.5f, 0.8f);
+                p.StartScale = UnityEngine.Random.Range(2f, 4f);
                 p.EndScale = 0f;
                 p.Scale = Vector3.zero;
                 p.Current = 0f;
@@ -88,6 +88,11 @@ namespace LD44.Effects
                 ) * Vector3.forward) * speed;
                 p.Damping = 5f;
             }
+        }
+
+        public void PickupCoin(Vector3 position)
+        {
+            GroundPuff(position);
         }
 
         public void UpPuff(Vector3 position, Vector3 velocity)

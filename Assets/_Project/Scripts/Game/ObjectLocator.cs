@@ -11,6 +11,7 @@ namespace LD44.Game
         private static CoinManager _coinManager;
         private static UICrosshairs _crosshairs;
         private static DestructablePiggyManager _destructablePiggy;
+        private static GameManager _gameManager;
 
         public static void Clear()
         {
@@ -18,6 +19,7 @@ namespace LD44.Game
             _coinManager = null;
             _crosshairs = null;
             _destructablePiggy = null;
+            _gameManager = null;
         }
         
         private static T GetOrFind<T>(T existing, string name, string containerName = "") where T : Behaviour
@@ -51,5 +53,7 @@ namespace LD44.Game
         public static CoinManager Coins => _coinManager = GetOrFind(_coinManager, "[CoinManager]");
         public static UICrosshairs Crosshairs => _crosshairs = GetOrFind(_crosshairs, "[Crosshairs]", "[Hud]");
         public static DestructablePiggyManager DestructablePiggy => _destructablePiggy = GetOrFind(_destructablePiggy, "[DestructablePiggyManager]");
+
+        public static GameManager GameManager => _gameManager = GetOrFind(_gameManager, "[GameManager]");
     }
 }
