@@ -15,7 +15,7 @@ MonoBehaviour:
   FilterMode: 1
   Gradients:
   - serializedVersion: 2
-    key0: {r: 0.9137255, g: 0.75588834, b: 0.09803919, a: 1}
+    key0: {r: 0.9137255, g: 0.09803919, b: 0.66074806, a: 1}
     key1: {r: 0.86666673, g: 0.73333335, b: 0.7725491, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}

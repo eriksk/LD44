@@ -32,17 +32,9 @@ namespace LD44.Game
 
         private IEnumerator BeginCountDown()
         {
-            yield return new WaitForSeconds(1f);
-
             SpawnPlayer();
 
-            // TODO: Countdown
-            // Debug.Log("3");
-            // yield return new WaitForSeconds(1f);
-            // Debug.Log("2");
-            // yield return new WaitForSeconds(1f);
-            // Debug.Log("1");
-            // yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);
 
             State = GameState.Playing;
             _timeUntilNextEnemySpawn = 3f;

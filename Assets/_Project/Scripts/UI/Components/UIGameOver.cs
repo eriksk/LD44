@@ -59,7 +59,7 @@ namespace LD44.UI.Components
         
         public void ExitGame()
         {
-            Application.Quit();
+            SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
         }
     }
 }
