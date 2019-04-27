@@ -1,5 +1,6 @@
 using LD44.Effects;
 using LD44.Game.Coins;
+using LD44.UI.Components;
 using UnityEngine;
 
 namespace LD44.Game
@@ -8,11 +9,13 @@ namespace LD44.Game
     {
         private static InstancedParticleSystem _particles;
         private static CoinManager _coinManager;
+        private static UICrosshairs _crosshairs;
 
         public static void Clear()
         {
             _particles = null;
             _coinManager = null;
+            _crosshairs = null;
         }
         
         private static T GetOrFind<T>(T existing, string name, string containerName = "") where T : Behaviour
@@ -44,5 +47,6 @@ namespace LD44.Game
     
         public static InstancedParticleSystem Particles => _particles = GetOrFind(_particles, "[Particles]");
         public static CoinManager Coins => _coinManager = GetOrFind(_coinManager, "[CoinManager]");
+        public static UICrosshairs Crosshairs => _crosshairs = GetOrFind(_crosshairs, "[Crosshairs]", "[Hud]");
     }
 }

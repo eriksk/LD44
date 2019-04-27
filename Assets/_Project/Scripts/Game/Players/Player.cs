@@ -10,6 +10,8 @@ namespace LD44.Game.Players
         public float MovementDamping = 3f;
         public float RotationSpeed = 5f;
 
+        public PlayerInput Input;
+
         public Animation Animator;
         public Transform Muzzle;
         public int Budget = 150;
@@ -18,11 +20,13 @@ namespace LD44.Game.Players
 
         private Rigidbody _rigidbody;
         private Vector3 _movement;
+        private bool _fire;
 
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
             SetAnimation("idle", 0f);
+            Input.OnStart(this);
         }
 
         private void SetAnimation(string name, float fadeLength = 0.1f)
@@ -33,23 +37,16 @@ namespace LD44.Game.Players
             Animator.CrossFade(_currentAnimation, fadeLength);
         }
 
-        public void Move(Vector3 movement)
+        public void UpdateInput(Vector3 movement, bool fire)
         {
-            _movement = movement;
+            _movement = movement.normalized * Mathf.Clamp01(movement.magnitude);
+            _movement.y = 0f;
+            _fire = fire;
         }
 
         void Update()
         {
-            var tryingToFire = Input.GetButtonDown("Fire1");
-
-            var inputDirection = new Vector3(
-                Input.GetAxis("Horizontal"),
-                0f,
-                Input.GetAxis("Vertical")
-            );
-
-            _movement = inputDirection.normalized * Mathf.Clamp01(inputDirection.magnitude);
-            _movement.y = 0f;
+            Input.UpdateInput(this);
 
             if(_movement.magnitude > 0.2f)
             {
@@ -69,9 +66,10 @@ namespace LD44.Game.Players
                 SetAnimation("idle");
             }
 
-            if(tryingToFire)
+            if(_fire)
             {
                 TryFire();
+                _fire = false;
             }
         }
 
@@ -89,6 +87,10 @@ namespace LD44.Game.Players
 
         void FixedUpdate()
         {
+            // Extra gravity
+            _rigidbody.AddForce(Vector3.down * 10f, ForceMode.Force);
+
+            _movement.y = 0f;
             _rigidbody.AddForce(_movement * Speed);
 
             var flatVelocity = _rigidbody.velocity;

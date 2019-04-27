@@ -31,7 +31,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5154387353939897113}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.774519, y: 0, z: 0}
 --- !u!33 &2092759362436589708
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -128,8 +128,10 @@ MonoBehaviour:
   Speed: 80
   MovementDamping: 6
   RotationSpeed: 15
+  Input: {fileID: 11400000, guid: c58979399eae91d4aaa0b84bf71b9b09, type: 2}
   Animator: {fileID: 4456376548364136161}
   Muzzle: {fileID: 5245274949811135014}
+  Budget: 15
 --- !u!135 &5266282063694547863
 SphereCollider:
   m_ObjectHideFlags: 0
