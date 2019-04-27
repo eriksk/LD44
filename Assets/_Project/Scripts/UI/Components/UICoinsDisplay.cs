@@ -31,6 +31,7 @@ namespace LD44.UI
 
             if(Player == null)
             {
+                CoinsText.color = Color.white;
                 CoinsText.text = "0";
                 return;
             }
@@ -39,6 +40,14 @@ namespace LD44.UI
             _previousBudget = Player.Budget;
 
             CoinsText.text = Player.Budget.ToString();
+            if(Player.Budget < 5)
+            {
+                CoinsText.color = Color.red;
+            }
+            else
+            {
+                CoinsText.color = Color.white;
+            }
         }
 
     }

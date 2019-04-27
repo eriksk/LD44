@@ -17,6 +17,8 @@ namespace LD44.Game.Players
         public Transform Muzzle;
         public int Budget = 150;
 
+        public AIParameters AIParameters = new AIParameters();
+
         private string _currentAnimation;
 
         private Rigidbody _rigidbody;

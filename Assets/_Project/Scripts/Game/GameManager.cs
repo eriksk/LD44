@@ -36,6 +36,7 @@ namespace LD44.Game
             // yield return new WaitForSeconds(1f);
 
             State = GameState.Playing;
+            _timeUntilNextEnemySpawn = 0f;
         }
 
         private void SpawnPlayer()
@@ -68,19 +69,21 @@ namespace LD44.Game
             ObjectLocator.Particles.Explosion(player.transform.position, Vector3.up);
         }
 
-        private float _timeSinceSpawned = 0f;
+        private float _timeUntilNextEnemySpawn = 0f;
+        private float _intensity = 0f;
 
         void Update()
         {
             if(State == GameState.Playing)
             {
                 ElapsedTime += Time.deltaTime;
-                _timeSinceSpawned += Time.deltaTime;
+                _intensity = Mathf.Lerp(0f, 1f, ElapsedTime / 60f); // Full intensity after a minute
+                _timeUntilNextEnemySpawn -= Time.deltaTime;
 
-                if(_timeSinceSpawned > 5f)
+                if(_timeUntilNextEnemySpawn <= 0f)
                 {
                     SpawnEnemy();
-                    _timeSinceSpawned = 0f;
+                    _timeUntilNextEnemySpawn = 1f + UnityEngine.Random.Range(3f, 5f) * (1f - _intensity);
                 }
 
                 if(Player == null || Player.Dead)
