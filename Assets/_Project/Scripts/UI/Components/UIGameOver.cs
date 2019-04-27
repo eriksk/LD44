@@ -21,15 +21,17 @@ namespace LD44.UI.Components
 
         public void Show(float totalSecondsElapsed)
         {
+            gameObject.SetActive(true);
+            
             var highscore = PlayerPrefs.GetFloat("Highscore", totalSecondsElapsed);
             
             if(totalSecondsElapsed >= highscore)
             {
+                highscore = totalSecondsElapsed;
                 PlayerPrefs.SetFloat("Highscore", totalSecondsElapsed);
                 PlayerPrefs.Save();
             }
 
-            gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Animator.Play(Clip.name, PlayMode.StopAll);

@@ -11,6 +11,8 @@ namespace LD44.Game
     {
         public GameState State;
         public UIGameOver UIGameOver;
+        public AudioSource Audio;
+        public AudioClip PlayerDestroyedClip;
         
         public GameObject PiggyPrefab;
         public PlayerInput HumanInput, CpuInput;
@@ -23,7 +25,7 @@ namespace LD44.Game
         void Start()
         {
             ObjectLocator.Clear();
-            
+
             State = GameState.WaitingToStart;
             StartCoroutine(BeginCountDown());
         }
@@ -114,6 +116,14 @@ namespace LD44.Game
         {
             UIGameOver.Show(ElapsedTime);
             yield return null;
+        }
+
+        public void OnPlayerDied(Player player)
+        {
+            if(PlayerDestroyedClip != null)
+            {
+                Audio.PlayOneShot(PlayerDestroyedClip);
+            }
         }
     }
 

@@ -12,6 +12,8 @@ namespace LD44.Game.Players
         public float RotationSpeed = 5f;
 
         public PlayerInput Input;
+        public AudioSource Audio;
+        public AudioClip PickupCoinClip, ShootClip, HitClip;
 
         public Animation Animator;
         public Transform Muzzle;
@@ -102,6 +104,11 @@ namespace LD44.Game.Players
 
                 spawnedCoin.Loss(transform.position, target);
             }
+            
+            if(HitClip != null)
+            {
+                Audio.PlayOneShot(HitClip);
+            }
 
             if(Budget <= 0)
             {
@@ -114,12 +121,17 @@ namespace LD44.Game.Players
             if(Dead) return;
             
             ObjectLocator.Particles.PickupCoin(coin.transform.position);
+            if(PickupCoinClip != null)
+            {
+                Audio.PlayOneShot(PickupCoinClip);
+            }
             Budget++;
         }
 
         private void Die()
         {
             // TODO: Register death in game manager or something?
+            ObjectLocator.GameManager.OnPlayerDied(this);
             ObjectLocator.CameraShake.Shake();
             // TODO: GEtComponent GC
             ObjectLocator.DestructablePiggy.Execute(transform, GetComponentInChildren<MeshRenderer>().sharedMaterial);
@@ -131,6 +143,12 @@ namespace LD44.Game.Players
             {
                 return;
             }
+
+            if(ShootClip != null)
+            {
+                Audio.PlayOneShot(ShootClip);
+            }
+
             var coin = ObjectLocator.Coins.Pop();
             coin.Fire(this, Muzzle);
             ObjectLocator.Particles.Explosion(Muzzle.position, Muzzle.forward);

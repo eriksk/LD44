@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="260.54701"
-     inkscape:cy="603.34763"
+     inkscape:cx="307.04701"
+     inkscape:cy="604.84763"
      inkscape:document-units="mm"
      inkscape:current-layer="g865"
      showgrid="false"
@@ -174,7 +174,9 @@
           </g>
         </g>
         <g
-           id="g929">
+           id="g929"
+           inkscape:export-xdpi="96"
+           inkscape:export-ydpi="96">
           <rect
              y="12.790754"
              x="162.3898"
