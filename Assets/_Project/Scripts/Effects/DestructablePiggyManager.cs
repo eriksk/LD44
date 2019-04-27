@@ -19,13 +19,13 @@ namespace LD44.Effects
             }
         }
 
-        public void Execute(Transform location)
+        public void Execute(Transform location, Material material)
         {
             var piggy = _pool.Pop();
             piggy.Reset();
             piggy.transform.position = location.position;
             piggy.transform.rotation = location.rotation;
-            piggy.Explode();
+            piggy.Explode(material);
         }
 
         void Update()

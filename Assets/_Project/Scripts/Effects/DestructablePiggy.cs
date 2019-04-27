@@ -13,6 +13,7 @@ namespace LD44.Effects
 
         private Dictionary<int, TransformState> _states;
         private Coroutine _destroyCoroutine;
+        private MeshRenderer[] _renderers;
 
         [HideInInspector]
         public bool Dead;
@@ -28,6 +29,7 @@ namespace LD44.Effects
             {
                 _states.Add(node.GetInstanceID(), TransformState.Create(node.transform));
             }
+            _renderers = GetComponentsInChildren<MeshRenderer>();
         }
 
         public void Reset()
@@ -49,8 +51,13 @@ namespace LD44.Effects
             _destroyCoroutine = StartCoroutine(WaitAndDestroy());
         }
 
-        public void Explode()
+        public void Explode(Material material)
         {
+            foreach(var renderer in _renderers)
+            {
+                renderer.sharedMaterial = material;
+            }
+            
             foreach(var node in Nodes)
             {
                 var direction = new Vector3(

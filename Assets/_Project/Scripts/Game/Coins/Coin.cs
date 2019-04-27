@@ -19,6 +19,7 @@ namespace LD44.Game.Coins
         private float _lossWait;
         private Player _firedByPlayer;
         private float _timeSpentFree;
+        private const float LossWaitDuration = 0.5f;
 
         public bool CanBePickedUp => _lossWait <= 0 && State == CoinState.Free;
 
@@ -40,7 +41,7 @@ namespace LD44.Game.Coins
         public void Loss(Vector3 position, Vector3 target)
         {
             State = CoinState.Free;
-            _lossWait = 1f;
+            _lossWait = LossWaitDuration;
             _timeSpentFree = 0f;
             Rigidbody.velocity = Vector3.zero;
             Rigidbody.angularVelocity = Vector3.zero;
@@ -134,7 +135,7 @@ namespace LD44.Game.Coins
             if(_bulletDuration <= 1f || Rigidbody.velocity.magnitude < 0.1f)
             {
                 _firedById = -1;
-                _lossWait = 1f;
+                _lossWait = LossWaitDuration;
                 State = CoinState.Free;
                 Rigidbody.velocity = Vector3.zero;
                 Rigidbody.angularVelocity = Vector3.zero;

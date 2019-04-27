@@ -120,7 +120,9 @@ namespace LD44.Game.Players
         private void Die()
         {
             // TODO: Register death in game manager or something?
-            ObjectLocator.DestructablePiggy.Execute(transform);
+            ObjectLocator.CameraShake.Shake();
+            // TODO: GEtComponent GC
+            ObjectLocator.DestructablePiggy.Execute(transform, GetComponentInChildren<MeshRenderer>().sharedMaterial);
             gameObject.SetActive(false);
         }
         private void TryFire()

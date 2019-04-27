@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using LD44.Game.Players;
+using LD44.UI.Components;
 using UnityEngine;
 
 namespace LD44.Game
@@ -9,14 +10,20 @@ namespace LD44.Game
     public class GameManager : MonoBehaviour
     {
         public GameState State;
+        public UIGameOver UIGameOver;
+        
         public GameObject PiggyPrefab;
         public PlayerInput HumanInput, CpuInput;
+        public Material PlayerMaterial;
+        public Material[] CpuMaterials;
         public float ElapsedTime;
 
         public Player Player { get; set; }
 
         void Start()
         {
+            ObjectLocator.Clear();
+            
             State = GameState.WaitingToStart;
             StartCoroutine(BeginCountDown());
         }
@@ -36,7 +43,7 @@ namespace LD44.Game
             // yield return new WaitForSeconds(1f);
 
             State = GameState.Playing;
-            _timeUntilNextEnemySpawn = 0f;
+            _timeUntilNextEnemySpawn = 3f;
         }
 
         private void SpawnPlayer()
@@ -45,6 +52,8 @@ namespace LD44.Game
             playerGameObject.transform.position = Vector3.zero;
             playerGameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             
+            playerGameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = PlayerMaterial;
+
             var player = playerGameObject.GetComponent<Player>();
             player.Input = HumanInput;
             player.Budget = 10;
@@ -61,6 +70,7 @@ namespace LD44.Game
                 UnityEngine.Random.Range(-5f, 5f)
             );
             playerGameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            playerGameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = CpuMaterials[UnityEngine.Random.Range(0, CpuMaterials.Length)];
             
             var player = playerGameObject.GetComponent<Player>();
             player.Input = CpuInput;
@@ -102,8 +112,8 @@ namespace LD44.Game
 
         private IEnumerator BeginGameOver()
         {
-            Debug.Log("GAME OVER YALL, result: " + ElapsedTime);
-            yield return new WaitForSeconds(3f);
+            UIGameOver.Show(ElapsedTime);
+            yield return null;
         }
     }
 
