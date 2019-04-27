@@ -4,19 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SplashSequence : MonoBehaviour
+namespace LD44.UI.Sequences
 {
-    public AnimationClip Clip;
-    public string TargetSceneName;
-
-    void Start()
+    public class SplashSequence : MonoBehaviour
     {
-        StartCoroutine(WaitForAnimationAndTransitionToScene());
-    }
+        public AnimationClip Clip;
+        public string TargetSceneName;
 
-    private IEnumerator WaitForAnimationAndTransitionToScene()
-    {
-        yield return new WaitForSeconds(Clip.length);
-        SceneManager.LoadScene(TargetSceneName, LoadSceneMode.Single);
+        void Start()
+        {
+            StartCoroutine(WaitForAnimationAndTransitionToScene());
+        }
+
+        private IEnumerator WaitForAnimationAndTransitionToScene()
+        {
+            yield return new WaitForSeconds(Clip.length);
+            SceneManager.LoadScene(TargetSceneName, LoadSceneMode.Single);
+        }
     }
 }
