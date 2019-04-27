@@ -825,6 +825,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2976aaf33ec97b044910330e33528d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 2049
 --- !u!1 &1024607578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,7 +1447,7 @@ GameObject:
   - component: {fileID: 1783948939}
   - component: {fileID: 1783948938}
   - component: {fileID: 1783948937}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -20,6 +20,7 @@ namespace LD44.Game.Players
 
         private Rigidbody _rigidbody;
         private Vector3 _movement;
+        private Vector3 _aimDirection;
         private bool _fire;
 
         void Start()
@@ -37,8 +38,10 @@ namespace LD44.Game.Players
             Animator.CrossFade(_currentAnimation, fadeLength);
         }
 
-        public void UpdateInput(Vector3 movement, bool fire)
+        public void UpdateInput(Vector3 movement, Vector3 aimDirection, bool fire)
         {
+            _aimDirection = aimDirection;
+            _aimDirection.y = 0f;
             _movement = movement.normalized * Mathf.Clamp01(movement.magnitude);
             _movement.y = 0f;
             _fire = fire;
@@ -48,16 +51,18 @@ namespace LD44.Game.Players
         {
             Input.UpdateInput(this);
 
-            if(_movement.magnitude > 0.2f)
+            if(_aimDirection.magnitude > 0.2f)
             {
-                var direction = _movement.normalized;
-                var targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                var targetRotation = Quaternion.LookRotation(_aimDirection, Vector3.up);
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
                     targetRotation,
                     RotationSpeed * Time.deltaTime
                 );
+            }
 
+            if(_movement.magnitude > 0.2f)
+            {
                 SetAnimation("walk");
                 ObjectLocator.Particles.WalkSmoke(transform.position, transform.forward, _rigidbody.velocity);
             }
@@ -81,6 +86,7 @@ namespace LD44.Game.Players
             }
             var coin = ObjectLocator.Coins.Pop();
             coin.Fire(this, Muzzle);
+            ObjectLocator.Particles.Explosion(Muzzle.position, Muzzle.forward);
             SetAnimation("shoot");
             Budget--;
         }

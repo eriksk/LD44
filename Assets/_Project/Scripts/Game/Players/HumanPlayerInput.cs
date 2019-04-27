@@ -25,7 +25,7 @@ namespace LD44.Game.Players
             var aimDirection = ObjectLocator.Crosshairs.GetDirection(player.transform.position);
             // TODO: use aim
 
-            player.UpdateInput(inputDirection, tryingToFire);
+            player.UpdateInput(inputDirection, aimDirection, tryingToFire);
         }
     }
 }
