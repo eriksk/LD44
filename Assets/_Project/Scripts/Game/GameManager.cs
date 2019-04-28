@@ -57,12 +57,17 @@ namespace LD44.Game
         
         private void SpawnEnemy()
         {
+            StartCoroutine(SpawnEnemyRoutine());
+        }
+
+        private IEnumerator SpawnEnemyRoutine()
+        {
+            var position = FindOptimalEnemyStartPosition();
+
+            ObjectLocator.Particles.SpawnPlayer(position);
+
             var playerGameObject = Instantiate(PiggyPrefab);
-            playerGameObject.transform.position = new Vector3(
-                UnityEngine.Random.Range(-5f, 5f),
-                0f,
-                UnityEngine.Random.Range(-5f, 5f)
-            );
+            playerGameObject.transform.position = position;
             playerGameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             playerGameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = CpuMaterials[UnityEngine.Random.Range(0, CpuMaterials.Length)];
             
@@ -70,7 +75,39 @@ namespace LD44.Game
             player.Input = CpuInput;
             player.Budget = 4;
 
-            ObjectLocator.Particles.Explosion(player.transform.position, Vector3.up);
+            var dropDuration = 0.5f;
+            var dropCurrent = 0f;
+
+            while(dropCurrent <= dropDuration)
+            {
+                dropCurrent += Time.deltaTime;
+                yield return null;
+
+                var progress = Mathf.Pow(Mathf.Clamp01(dropCurrent / dropDuration), 2f);
+                position.y = Mathf.Lerp(20f, 0f, progress);
+                playerGameObject.transform.position = position;
+            }
+
+            ObjectLocator.Particles.PickupCoin(player.transform.position);
+            ObjectLocator.CameraShake.Shake();
+        }
+
+        private Vector3 FindOptimalEnemyStartPosition()
+        {
+            var playerPosition = Player?.transform.position ?? Vector3.zero;
+
+            var playerAngle = Mathf.Atan2(playerPosition.z, playerPosition.x) * Mathf.Rad2Deg;
+
+            var targetAngle = (playerAngle + 180f + UnityEngine.Random.Range(-45f, 45f)) * Mathf.Deg2Rad;
+            var distanceFromCenter = UnityEngine.Random.Range(2f, 10f);
+
+            var position = new Vector3(
+                Mathf.Cos(targetAngle),
+                0f,
+                Mathf.Sin(targetAngle)
+            ) * distanceFromCenter;
+
+            return position;
         }
 
         private float _timeUntilNextEnemySpawn = 0f;

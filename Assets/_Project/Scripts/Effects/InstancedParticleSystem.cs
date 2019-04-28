@@ -11,6 +11,8 @@ namespace LD44.Effects
         {
             var p = Items.Pop();
             if(p == null) return;
+            
+            p.Reset();
 
             var randomOffset = new Vector3(
                 UnityEngine.Random.Range(-0.5f, 0.5f),
@@ -38,6 +40,8 @@ namespace LD44.Effects
         {
             var p = Items.Pop();
             if(p == null) return;
+            
+            p.Reset();
 
             var randomOffset = new Vector3(
                 UnityEngine.Random.Range(-0.5f, 0.5f),
@@ -59,6 +63,39 @@ namespace LD44.Effects
             p.Gravity = new Vector3(0f, -5f, 0f);
         }
 
+        public void SpawnPlayer(Vector3 position)
+        {
+            var count = 36;
+
+            for(var i = 0; i < count; i++)
+            {
+                var p = Items.Pop();
+                if(p == null) return;
+                p.Reset();
+
+                p.Duration = 1f;
+                p.Delay = 0f;
+
+                var angle = (i / (float)count) * 6.28f;
+
+                p.Position = position + new Vector3(
+                    Mathf.Cos(angle),
+                    0f,
+                    Mathf.Sin(angle)
+                ) * 1f;
+                
+                p.StartScale = 1f;
+                p.EndScale = 0f;
+                p.Scale = Vector3.zero;
+                p.Current = 0f;
+                p.RotateForwardVelocity = true;
+                p.Elastic = true;
+                p.Gravity = new Vector3(0f, -10f, 0f);
+                p.Velocity = Vector3.up * 5f;
+                p.Damping = 0f;
+            }
+        }
+
         public void GroundPuff(Vector3 position)
         {
             var count = UnityEngine.Random.Range(20, 32);
@@ -67,6 +104,7 @@ namespace LD44.Effects
             {
                 var p = Items.Pop();
                 if(p == null) return;
+                p.Reset();
 
                 var angle = UnityEngine.Random.Range(-180f, 180f);
                 var speed = UnityEngine.Random.Range(3f, 5f);
@@ -103,6 +141,7 @@ namespace LD44.Effects
             {
                 var p = Items.Pop();
                 if(p == null) return;
+                p.Reset();
 
                 var angle = UnityEngine.Random.Range(-180f, 180f);
                 var speed = UnityEngine.Random.Range(3f, 6f);
@@ -134,6 +173,7 @@ namespace LD44.Effects
             {
                 var p = Items.Pop();
                 if(p == null) return;
+                p.Reset();
 
                 var speed = UnityEngine.Random.Range(3f, 8f);
 
@@ -166,6 +206,7 @@ namespace LD44.Effects
             {
                 var p = Items.Pop();
                 if(p == null) return;
+                p.Reset();
 
                 p.Duration = UnityEngine.Random.Range(0.1f, 0.2f);
                 var range = 0.3f;
@@ -194,6 +235,13 @@ namespace LD44.Effects
             for(var i = 0; i < Items.Count; i++)
             {
                 var p = Items[i];
+                if(p.Delay > 0f)
+                {
+                    p.Delay -= delta;
+                    p.Scale = Vector3.zero; // Fake hide it
+                    continue;
+                }
+
                 p.Current += delta;
 
                 if(p.Current >= p.Duration)
@@ -249,5 +297,22 @@ namespace LD44.Effects
         public bool RotateForwardVelocity;
         public bool Elastic;
         public float Damping = 0f;
+        public float Delay = 0;
+        
+        public void Reset()
+        {
+            Current = 0f;
+            Duration = 0f;
+            Velocity = Vector3.zero;
+            StartScale = 1f;
+            EndScale = 0f;
+            RotateForwardVelocity = false;
+            Elastic = false;
+            Damping = 0f;
+            Delay = 0f;
+            Position = Vector3.zero;
+            Rotation = Quaternion.identity;
+            Scale = Vector3.one;
+        }
     }
 }
