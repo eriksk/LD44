@@ -95,6 +95,41 @@ namespace LD44.Effects
                 p.Damping = 0f;
             }
         }
+        
+        public void PlayerDropLand(Vector3 position)
+        {
+            var count = 36;
+
+            for(var i = 0; i < count; i++)
+            {
+                var p = Items.Pop();
+                if(p == null) return;
+                p.Reset();
+
+                p.Duration = 1f;
+                p.Delay = 0f;
+
+                var angle = (i / (float)count) * 6.28f;
+
+                var direction = new Vector3(
+                    Mathf.Cos(angle),
+                    0f,
+                    Mathf.Sin(angle)
+                );
+
+                p.Position = position + direction * 1f;
+                
+                p.StartScale = 1f;
+                p.EndScale = 0f;
+                p.Scale = Vector3.zero;
+                p.Current = 0f;
+                p.RotateForwardVelocity = true;
+                p.Elastic = true;
+                p.Gravity = new Vector3(0f, 5f, 0f);
+                p.Velocity = direction * 5f;
+                p.Damping = 5f;
+            }
+        }
 
         public void GroundPuff(Vector3 position)
         {

@@ -13,6 +13,7 @@ namespace LD44.Game
         public UIGameOver UIGameOver;
         public AudioSource Audio;
         public AudioClip PlayerDestroyedClip;
+        public AudioClip PlayerLandClip;
         
         public GameObject PiggyPrefab;
         public PlayerInput HumanInput, CpuInput;
@@ -88,8 +89,12 @@ namespace LD44.Game
                 playerGameObject.transform.position = position;
             }
 
-            ObjectLocator.Particles.PickupCoin(player.transform.position);
+            ObjectLocator.Particles.PlayerDropLand(player.transform.position);
             ObjectLocator.CameraShake.Shake();
+            if(PlayerLandClip != null)
+            {
+                Audio.PlayOneShot(PlayerLandClip);
+            }
         }
 
         private Vector3 FindOptimalEnemyStartPosition()

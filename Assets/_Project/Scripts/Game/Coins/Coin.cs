@@ -19,7 +19,7 @@ namespace LD44.Game.Coins
         private float _lossWait;
         private Player _firedByPlayer;
         private float _timeSpentFree;
-        private const float LossWaitDuration = 0.5f;
+        private const float LossWaitDuration = 0.2f;
 
         public bool CanBePickedUp => _lossWait <= 0 && State == CoinState.Free;
 
