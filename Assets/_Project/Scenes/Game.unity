@@ -475,6 +475,7 @@ MonoBehaviour:
   Audio: {fileID: 176451950}
   PlayerDestroyedClip: {fileID: 8300000, guid: b8450b824b911ca4d86a975c5183f780, type: 3}
   PlayerLandClip: {fileID: 8300000, guid: d0b3529acedd8094bb5800de6abf7e49, type: 3}
+  GameOverClip: {fileID: 8300000, guid: 4425c4018638064479157cc50ec7e000, type: 3}
   PiggyPrefab: {fileID: 5154387353940129593, guid: 56ad993bf0ac551438ebeca7198a4743,
     type: 3}
   HumanInput: {fileID: 11400000, guid: 5128c21ddb1e2474581a0def11da2fd1, type: 2}

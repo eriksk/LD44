@@ -14,6 +14,7 @@ namespace LD44.Game
         public AudioSource Audio;
         public AudioClip PlayerDestroyedClip;
         public AudioClip PlayerLandClip;
+        public AudioClip GameOverClip;
         
         public GameObject PiggyPrefab;
         public PlayerInput HumanInput, CpuInput;
@@ -28,23 +29,25 @@ namespace LD44.Game
             ObjectLocator.Clear();
 
             State = GameState.WaitingToStart;
+            StartCoroutine(SpawnPlayer());
             StartCoroutine(BeginCountDown());
         }
 
         private IEnumerator BeginCountDown()
         {
-            SpawnPlayer();
-
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
 
             State = GameState.Playing;
             _timeUntilNextEnemySpawn = 3f;
         }
 
-        private void SpawnPlayer()
+        private IEnumerator SpawnPlayer()
         {
+            yield return new WaitForSeconds(1f);
+            var position = new Vector3(0f, 20f, 0f);
+
             var playerGameObject = Instantiate(PiggyPrefab);
-            playerGameObject.transform.position = Vector3.zero;
+            playerGameObject.transform.position = position;
             playerGameObject.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             
             playerGameObject.GetComponentInChildren<MeshRenderer>().sharedMaterial = PlayerMaterial;
@@ -54,6 +57,26 @@ namespace LD44.Game
             player.Budget = 10;
 
             Player = player;
+            
+            var dropDuration = 0.5f;
+            var dropCurrent = 0f;
+
+            while(dropCurrent <= dropDuration)
+            {
+                dropCurrent += Time.deltaTime;
+                yield return null;
+
+                var progress = Mathf.Pow(Mathf.Clamp01(dropCurrent / dropDuration), 2f);
+                position.y = Mathf.Lerp(20f, 0f, progress);
+                playerGameObject.transform.position = position;
+            }
+
+            ObjectLocator.Particles.PlayerDropLand(player.transform.position);
+            ObjectLocator.CameraShake.Shake();
+            if(PlayerLandClip != null)
+            {
+                Audio.PlayOneShot(PlayerLandClip);
+            }
         }
         
         private void SpawnEnemy()
@@ -142,6 +165,14 @@ namespace LD44.Game
 
         private void GameOver()
         {
+            foreach(var player in GameObject.FindObjectsOfType<Player>())
+            {
+                player.Die(true); // Skip sound effects
+            }
+            if(GameOverClip != null)
+            {
+                Audio.PlayOneShot(GameOverClip);
+            }
             State = GameState.GameOver;
             StartCoroutine(BeginGameOver());
         }

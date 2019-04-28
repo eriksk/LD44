@@ -13,6 +13,7 @@ namespace LD44.Game.Players
 
         public PlayerInput Input;
         public AudioSource Audio;
+        public AudioSource FootStepsAudio;
         public AudioClip PickupCoinClip, ShootClip, HitClip;
 
         public Animation Animator;
@@ -29,12 +30,23 @@ namespace LD44.Game.Players
         private bool _fire;
 
         public bool Dead => Budget <= 0;
+        private bool _isHumanPlayer;
 
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
             SetAnimation("idle", 0f);
             Input.OnStart(this);
+            _isHumanPlayer = Input.GetType() == typeof(HumanPlayerInput);
+
+            if(_isHumanPlayer)
+            {
+                FootStepsAudio.Play();
+            }
+            else
+            {
+                FootStepsAudio.Stop();
+            }
         }
 
         private void SetAnimation(string name, float fadeLength = 0.1f)
@@ -72,10 +84,19 @@ namespace LD44.Game.Players
             {
                 SetAnimation("walk");
                 ObjectLocator.Particles.WalkSmoke(transform.position, transform.forward, _rigidbody.velocity);
+                if(_isHumanPlayer)
+                {
+                    FootStepsAudio.UnPause();
+                }
             }
             else
             {
                 SetAnimation("idle");
+                
+                if(_isHumanPlayer)
+                {
+                    FootStepsAudio.Pause();
+                }
             }
 
             if(_fire)
@@ -128,11 +149,18 @@ namespace LD44.Game.Players
             Budget++;
         }
 
-        private void Die()
+        private bool _alreadyDead;
+        public void Die(bool skipEffects = false)
         {
-            ObjectLocator.GameManager.OnPlayerDied(this);
-            ObjectLocator.CameraShake.Shake();
-            ObjectLocator.Particles.Explosion(transform.position, Vector3.up);
+            if(_alreadyDead) return;
+
+            _alreadyDead = true;
+            if(!skipEffects)
+            {
+                ObjectLocator.GameManager.OnPlayerDied(this);
+                ObjectLocator.CameraShake.Shake();
+                ObjectLocator.Particles.Explosion(transform.position, Vector3.up);
+            }
             // TODO: GEtComponent GC
             ObjectLocator.DestructablePiggy.Execute(transform, GetComponentInChildren<MeshRenderer>().sharedMaterial);
             gameObject.SetActive(false);
