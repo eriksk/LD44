@@ -112,7 +112,7 @@ namespace LD44.Effects
 
                 p.Position = position;
                 
-                p.StartScale = UnityEngine.Random.Range(2f, 4f);
+                p.StartScale = UnityEngine.Random.Range(1f, 2f);
                 p.EndScale = 0f;
                 p.Scale = Vector3.zero;
                 p.Current = 0f;
